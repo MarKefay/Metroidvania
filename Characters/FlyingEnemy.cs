@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 public class FlyingEnemy : Character
 {
@@ -28,6 +28,7 @@ public class FlyingEnemy : Character
 
     protected bool readyToAttack;
     public bool enemyFound = false;
+    public bool enemyIsDead= false;
     private bool movingRight = true;
     bool reachedEndOfPath = false;
 
@@ -78,6 +79,9 @@ public class FlyingEnemy : Character
             enemyFound = true;
         }else{
             enemyFound = false;
+        }
+        if(currentHealth == 0f){
+            enemyIsDead = true;
         }
     }
     

@@ -27,7 +27,7 @@ public abstract class Character : MonoBehaviour
     public bool grounded;
 
     [Header ("Attack Variables")]
-    public static bool canAttack = false;
+    public bool canAttack = false;
     public Transform attackPoint;
     public LayerMask enemyLayers;
     public float attackRange = 0.5f;
@@ -60,7 +60,7 @@ public abstract class Character : MonoBehaviour
     public float dashSpeed;
     protected Vector2 forceToDash;
 
-
+    public CapsuleCollider2D body;
 
     public PauseMenu paused;
 
@@ -70,6 +70,7 @@ public abstract class Character : MonoBehaviour
         myAnim = GetComponent<Animator>();
 
     }
+    
     public virtual void Update() {
         
         grounded = Physics2D.OverlapCircle(groundCheck.position, radOCircle, whatIsGround); //checking if character staying on ground
@@ -129,7 +130,7 @@ public abstract class Character : MonoBehaviour
     }
 
     //taking damage from enemies
-    public void TakeDamage(int damage){
+    public virtual void TakeDamage(int damage){
         if (invulnerable == false){
         currentHealth -= damage;
         myAnim.SetTrigger("Hurt");
@@ -156,7 +157,7 @@ public abstract class Character : MonoBehaviour
     //says for itself
     void Die(){
         myAnim.SetBool("IsDead", true);
-        Physics2D.IgnoreLayerCollision(3, 6);
+        body.enabled = false;
         this.enabled = false;
     }
     #endregion

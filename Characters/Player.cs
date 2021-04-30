@@ -14,13 +14,16 @@ public class Player : Character
     public ChestController CC;
 
     public bool isMoving = false;
+
+    public HealthBar hpBar;
  
     public override void Start()
     {
         base.Start();
         speed = runSpeed;
         currentHealth = maxHealth;
-        canAttack = false;
+        //canAttack = false;
+        hpBar.SetMax(maxHealth);
     }
 
     public override void Update()
@@ -103,7 +106,7 @@ public class Player : Character
         }
 
         //if you press the button - player will attack
-        if(Time.time >= nextAttackTime && canAttack){
+        if(Time.time >= nextAttackTime && canAttack && grounded){
             if (Input.GetButtonDown("Fire1"))
             {
                 StartCoroutine("SwordAttackSlash");
@@ -231,4 +234,10 @@ public class Player : Character
             myAnim.SetLayerWeight(1, 0);
         }
     }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        hpBar.CalcHealth(currentHealth);
+    } 
 }

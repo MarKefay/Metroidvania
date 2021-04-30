@@ -29,6 +29,7 @@ public class Enemy : Character
     protected bool readyToAttack;
     public bool enemyFound = false;
     public bool enemyInRange = false;
+    public bool enemyIsDead = false;
     private bool movingRight = true;
     bool reachedEndOfPath = false;
 
@@ -99,6 +100,9 @@ public class Enemy : Character
             myAnim.SetTrigger("Attack1");
             nextAttackTime = Time.time + 1f / attackRate;
             enemyInRange = false;
+        }
+        if(currentHealth == 0f){
+            enemyIsDead = true;
         }
     }
     private void OnDrawGizmos() {

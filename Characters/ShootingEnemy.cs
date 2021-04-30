@@ -32,6 +32,7 @@ public class ShootingEnemy : Character
     protected bool readyToAttack;
     public bool enemyFound = false;
     public bool enemyInRange = false;
+    public bool enemyIsDead = false;
     private bool movingRight = true;
     bool reachedEndOfPath = false;
 
@@ -104,6 +105,9 @@ public class ShootingEnemy : Character
             }
         }else{
         chaseSpeed = 0.5f;
+        }
+        if(currentHealth == 0f){
+            enemyIsDead = true;
         }
     }
 
